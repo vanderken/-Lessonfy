@@ -3,24 +3,24 @@ import React, { useState } from 'react';
 //Panel Component
 export const LessonPanel = ({ panel, index, onUpdate, onRemove }) => {
   return (
-    <div className="panel-container" style={{ border: '1px solid #ccc', margin: '10px 0', padding: '10px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+    <div className="panel-container">
+      <div className="panel-header">
         <input
+          className="lesson-panel-title"
           type="text"
           placeholder={`Panel ${index + 1} Title (Optional)`}
           value={panel.title}
           onChange={(e) => onUpdate(panel.id, 'title', e.target.value)}
-          style={{ width: '80%' }}
         />
-        <button type="button" onClick={() => onRemove(panel.id)}>
+        <button type="button" className="lesson-panel-remove" onClick={() => onRemove(panel.id)}>
           Remove
         </button>
       </div>
       <textarea
+        className="lesson-textarea"
         placeholder="Lesson text box"
         value={panel.content}
         onChange={(e) => onUpdate(panel.id, 'content', e.target.value)}
-        style={{ width: '100%', minHeight: '80px' }}
       />
     </div>
   );
@@ -60,21 +60,21 @@ export const LessonForm = ({ onSave }) => {
 
   return (
     <form onSubmit={handleSubmit} className="lesson-form">
-      <div style={{ marginBottom: '20px' }}>
+      <div className="lesson-form__fields">
         <input
+          className="lesson-input"
           type="text"
           placeholder="Lesson Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          style={{ display: 'block', width: '100%', marginBottom: '10px' }}
         />
         <input
+          className="lesson-input"
           type="text"
           placeholder="Lesson Subtitle"
           value={subtitle}
           onChange={(e) => setSubtitle(e.target.value)}
-          style={{ display: 'block', width: '100%' }}
         />
       </div>
 
@@ -88,11 +88,11 @@ export const LessonForm = ({ onSave }) => {
         />
       ))}
 
-      <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-        <button type="button" onClick={handleAddPanel}>
+      <div className="lesson-form__actions">
+        <button type="button" className="lesson-button lesson-button--secondary" onClick={handleAddPanel}>
           Add panel
         </button>
-        <button type="submit">
+        <button type="submit" className="lesson-button lesson-button--primary">
           Save Lesson
         </button>
       </div>

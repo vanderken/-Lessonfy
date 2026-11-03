@@ -1,47 +1,40 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { LessonForm } from '../components/LessonForm';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LessonForm } from "../components/LessonForm.jsx";
+import { createLesson } from "../api/lessons.js";
 
 export default function NewLessonPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
   const handleSave = async (lesson) => {
-    setError('');
+    setError("");
     setSaving(true);
     try {
-      const res = await fetch('/api/lessons', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: lesson.title,
-          subtitle: lesson.subtitle,
-          panels: lesson.panels.map((p, i) => ({
-            position: i,
-            title: p.title,
-            content: p.content,
-          })),
-        }),
+      await createLesson({
+        title: lesson.title,
+        subtitle: lesson.subtitle,
+        panels: lesson.panels.map((p, i) => ({
+          position: i,
+          title: p.title,
+          content: p.content,
+        })),
       });
-      if (res.status === 401) {
-        navigate('/login');
+      navigate("/");
+    } catch (err) {
+      if (err.status === 401) {
+        navigate("/login");
         return;
       }
-      if (!res.ok) {
-        throw new Error('Could not save the lesson. Please try again.');
-      }
-      navigate('/');
-    } catch (err) {
-      setError(err.message);
+      setError("Could not save the lesson. Please try again.");
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <main style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
+    <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
       <p>
         <Link to="/">← Back to lessons</Link>
       </p>

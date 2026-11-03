@@ -37,8 +37,6 @@
 
 body {
   margin: 0;
-
-  
   background: var(--bg);
   color: var(--ink);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -52,4 +50,129 @@ a {
 :focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 2px;
+}
+
+.lesson-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lesson-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lesson-input,
+.lesson-panel-title,
+.lesson-textarea {
+  width: 100%;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-input::placeholder,
+.lesson-panel-title::placeholder,
+.lesson-textarea::placeholder {
+  color: var(--muted);
+}
+
+.lesson-input:focus,
+.lesson-panel-title:focus,
+.lesson-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+  outline: none;
+}
+
+.panel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lesson-panel-title {
+  flex: 1;
+}
+
+.lesson-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.lesson-panel-remove,
+.lesson-button {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.lesson-panel-remove {
+  padding: 0.7rem 0.9rem;
+  background: transparent;
+  color: var(--ink);
+}
+
+.lesson-panel-remove:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.lesson-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.lesson-button {
+  flex: 1;
+  min-height: 2.9rem;
+  padding: 0.75rem 1rem;
+}
+
+.lesson-button--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.lesson-button--primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.lesson-button--secondary {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.lesson-button--secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .panel-header,
+  .lesson-form__actions {
+    flex-direction: column;
+  }
 }

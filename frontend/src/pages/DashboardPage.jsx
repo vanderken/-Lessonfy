@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchLessons } from "../api/lessons";
 import useDebouncedValue from "../hooks/useDebouncedValue";
-import "../styles/theme.css";
 import "./DashboardPage.css";
 
 const PAGE_SIZE = 10;
