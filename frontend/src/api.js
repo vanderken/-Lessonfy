@@ -6,6 +6,17 @@ function csrfToken() {
   return m ? decodeURIComponent(m[1]) : "";
 }
 
+// Mock mode only: remembers a fake sign-in for this browser tab.
+// When MOCK is false this always returns true and the backend (401) decides.
+export function isSignedIn() {
+  if (!MOCK) return true;
+  try {
+    return sessionStorage.getItem("mockSignedIn") === "1";
+  } catch {
+    return false;
+  }
+}
+
 export async function post(path, body) {
   if (!MOCK) {
     const res = await fetch("/api" + path, {
@@ -30,6 +41,13 @@ export async function post(path, body) {
     throw new Error("Email or password is incorrect.");
   if (path === "/auth/register" && body.email === "taken@example.com")
     throw new Error("An account with this email already exists. Try signing in.");
+  if (path === "/auth/login") {
+    try {
+      sessionStorage.setItem("mockSignedIn", "1");
+    } catch {
+      /* ignore */
+    }
+  }
   return { email: body.email, name: body.name };
 }
 
